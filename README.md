@@ -1,1 +1,3 @@
-# api-practice
+# API practice
+
+Project by Mitja

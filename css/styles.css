@@ -1,0 +1,54 @@
+:root {
+	--neutral-100: #ffffff;
+	--neutral-300: #cccccc;
+	--neutral-500: #949494;
+	--neutral-700: #383838;
+	--neutral-900: #1a1a1a;
+
+	--main-100: #4f66cd;
+	--main-300: #354dba;
+	--main-500: #2b3f98;
+	--main-700: #253682;
+	--main-900: #1e2d6c;
+
+	--accent-100: #cdb64f;
+	--accent-300: #baa235;
+	--accent-500: #97832b;
+	--accent-700: #827125;
+	--accent-900: #6c5e1e;
+}
+
+body {
+	background-color: var(--neutral-300);
+	color: var(--neutral-900);
+	margin: 0;
+}
+
+header {
+	background-color: var(--neutral-100);
+	max-height: 75px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+header .logo {
+	position: relative;
+	margin-top: 30px;
+}
+
+main {
+	padding-top: 20px;
+}
+
+.container {
+	max-width: 1200px;
+	display: block;
+	margin: 0 auto;
+}
+
+.daily {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}

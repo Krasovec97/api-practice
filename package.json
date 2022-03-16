@@ -1,0 +1,23 @@
+{
+  "name": "api-practice",
+  "version": "1.0.0",
+  "description": "Nasa API Practice",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Krasovec97/api-practice.git"
+  },
+  "author": "Mitja",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Krasovec97/api-practice/issues"
+  },
+  "homepage": "https://github.com/Krasovec97/api-practice#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "babel": "^6.23.0"
+  }
+}
