@@ -16,13 +16,17 @@ fetch(dQuote)
 		return response.json();
 	})
 	.then((quoteData) => {
-		dailyQuote(quoteData.contents.quotes[0].quote);
+		dailyQuote(
+			quoteData.contents.quotes[0].quote,
+			quoteData.contents.quotes[0].author
+		);
 	});
 
 function astroImage(image_url) {
 	document.getElementById('astro-daily').src = image_url;
 }
 
-function dailyQuote(quote) {
-	document.getElementById('quote-daily').innerHTML = quote;
+function dailyQuote(quote, author) {
+	document.getElementById('quote-daily').innerHTML = '"' + quote + '"';
+	document.getElementById('quote-daily-author').innerHTML = '- ' + author;
 }

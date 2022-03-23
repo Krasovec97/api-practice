@@ -16,6 +16,8 @@
 	--accent-500: #97832b;
 	--accent-700: #827125;
 	--accent-900: #6c5e1e;
+
+	font-family: 'Roboto', sans-serif;
 }
 
 body {
@@ -48,7 +50,33 @@ main {
 }
 
 .daily {
+	margin-top: 15px;
 	display: flex;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 	justify-content: space-around;
+	align-items: center;
+}
+
+.daily .daily__image img {
+	border-radius: 5% 0 0 5%;
+}
+
+.daily .daily__quote {
+	height: 100%;
+	width: auto;
+	z-index: 1;
+	position: relative;
+	background-color: var(--neutral-100);
+	text-align: end;
+	font-style: italic;
+	padding: 30px;
+	border-radius: 10px;
+	align-self: center;
+}
+
+.daily .daily__quote #quote-daily {
+	color: var(--main-700);
+	font-weight: 300;
+	font-size: 30px;
+	text-align: center;
 }
