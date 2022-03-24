@@ -1,9 +1,10 @@
-const dailyImageUrl =
-	'https://api.nasa.gov/planetary/apod?api_key=whyzw93A2cmHzchDRiHf514XoTp0yRe0RhqZ2qwg';
+const API = {
+	dailyImage:
+		'https://api.nasa.gov/planetary/apod?api_key=whyzw93A2cmHzchDRiHf514XoTp0yRe0RhqZ2qwg',
+	dailyQuote: 'https://quotes.rest/qod',
+};
 
-const dQuote = 'https://quotes.rest/qod';
-
-fetch(dailyImageUrl)
+fetch(API.dailyImage)
 	.then((response) => {
 		return response.json();
 	})
@@ -14,7 +15,7 @@ fetch(dailyImageUrl)
 		console.error('Error: ' + error);
 	});
 
-fetch(dQuote)
+fetch(API.dailyQuote)
 	.then((response) => {
 		return response.json();
 	})

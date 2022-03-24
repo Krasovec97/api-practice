@@ -1,3 +1,5 @@
+@import './font-face.css';
+
 :root {
 	--neutral-100: #ffffff;
 	--neutral-300: #cccccc;
@@ -16,67 +18,59 @@
 	--accent-500: #97832b;
 	--accent-700: #827125;
 	--accent-900: #6c5e1e;
-
-	font-family: 'Roboto', sans-serif;
 }
 
-body {
-	background-color: var(--neutral-300);
-	color: var(--neutral-900);
-	margin: 0;
-}
+/* HEADER */
 
 header {
+	position: fixed;
+	top: 0;
+	width: 100vw;
 	background-color: var(--neutral-100);
-	max-height: 75px;
+	padding: 0;
+	max-height: 100px;
+	z-index: 1;
+}
+
+header .logo {
+	position: relative;
+	display: flex;
+	justify-content: center;
+}
+
+header .logo img {
+	width: 250px;
+}
+
+/* END-HEADER */
+
+/* MAIN */
+
+main {
+	margin-top: 175px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-header .logo {
-	position: relative;
-	margin-top: 30px;
-}
-
-main {
-	padding-top: 20px;
-}
-
 .container {
-	max-width: 1200px;
-	display: block;
-	margin: 0 auto;
+	max-width: 1600px;
 }
 
-.daily {
-	margin-top: 15px;
+.container .daily {
 	display: flex;
-	flex-wrap: nowrap;
-	justify-content: space-around;
 	align-items: center;
 }
 
-.daily .daily__image img {
-	border-radius: 5% 0 0 5%;
+.container .daily .daily__image img {
+	border-radius: 25px;
+	border: 3px solid white;
 }
 
-.daily .daily__quote {
-	height: 100%;
-	width: auto;
-	z-index: 1;
-	position: relative;
+.container .daily .daily__quote {
 	background-color: var(--neutral-100);
-	text-align: end;
-	font-style: italic;
-	padding: 30px;
-	border-radius: 10px;
-	align-self: center;
+	border-radius: 0 5px 5px 0;
+	padding: 50px;
 }
 
-.daily .daily__quote #quote-daily {
-	color: var(--main-700);
-	font-weight: 300;
-	font-size: 30px;
-	text-align: center;
-}
+/*  END - MAIN  */
