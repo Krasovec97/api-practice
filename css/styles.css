@@ -41,31 +41,82 @@ main {
 	max-width: 1600px;
 }
 
-.container .daily {
+.daily {
 	display: flex;
 	align-items: center;
 }
 
-.container .daily .daily__image img {
+.daily__image img {
 	border-radius: 25px;
 	border: 7px solid white;
 }
 
-.container .daily .daily__quote {
+.daily__quote {
 	background-color: #fff;
 	border-radius: 0 25px 25px 0;
 	padding: 50px;
 }
 
-.container .daily .daily__quote #quote-daily {
+#quote-daily {
 	color: navy;
 	font-weight: 600;
 	font-size: 50px;
 }
 
-.container .daily .daily__quote #quote-daily-author {
+#quote-daily-author {
 	font-weight: 300;
 	font-size: 20px;
 }
 
 /*  END - MAIN  */
+
+/* NEO - NEAR EARTH OBJECTS */
+
+.neo {
+	width: 100%;
+}
+
+.neo .title {
+	color: #fff;
+	text-transform: uppercase;
+	font-size: 32px;
+}
+
+.neo__card-container {
+	display: grid;
+	gap: 25px;
+	grid-template-columns: repeat(4, 1fr);
+}
+
+.neo-card {
+	display: block;
+	border-radius: 25px;
+}
+
+.neo-card__header {
+	padding: 20px;
+	line-height: 26px;
+	background-color: #cbcbcb;
+}
+
+.neo-card__header #fullname {
+	text-transform: capitalize;
+	font-weight: 300;
+	font-size: 18px;
+}
+.neo-card__header #nickname {
+	text-transform: uppercase;
+	font-weight: 600;
+	font-size: 30px;
+}
+
+.neo-card__body {
+	padding: 5px 20px 5px 20px;
+	background-color: #fff;
+}
+
+.neo-card__body p {
+	margin: 10px 0 0 0;
+}
+
+/* END - NEO */

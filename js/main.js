@@ -2,6 +2,8 @@ const API = {
 	dailyImage:
 		'https://api.nasa.gov/planetary/apod?api_key=whyzw93A2cmHzchDRiHf514XoTp0yRe0RhqZ2qwg',
 	dailyQuote: 'https://quotes.rest/qod',
+	NeoWS:
+		'https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=whyzw93A2cmHzchDRiHf514XoTp0yRe0RhqZ2qwg',
 };
 
 fetch(API.dailyImage)
@@ -28,6 +30,16 @@ fetch(API.dailyQuote)
 	.catch((error) => {
 		console.error('Error: ' + error);
 	});
+
+// fetch(API.NeoWS)
+// 	.then((response) => {
+// 		return response.json();
+// 	})
+// 	.then((data) => {
+// 		console.log(data);
+// 		data.near_earth_objects.forEach((object) => {});
+// 	})
+// 	.catch((err) => console.err('Error: ' + err));
 
 function astroImage(image_url) {
 	document.getElementById('astro-daily').src = image_url;
