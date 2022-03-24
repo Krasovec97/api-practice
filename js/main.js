@@ -31,15 +31,15 @@ fetch(API.dailyQuote)
 		console.error('Error: ' + error);
 	});
 
-// fetch(API.NeoWS)
-// 	.then((response) => {
-// 		return response.json();
-// 	})
-// 	.then((data) => {
-// 		console.log(data);
-// 		data.near_earth_objects.forEach((object) => {});
-// 	})
-// 	.catch((err) => console.err('Error: ' + err));
+fetch(API.NeoWS)
+	.then((response) => {
+		return response.json();
+	})
+	.then((data) => {
+		console.log(data);
+		data.near_earth_objects.forEach((object) => {});
+	})
+	.catch((err) => console.err('Error: ' + err));
 
 function astroImage(image_url) {
 	document.getElementById('astro-daily').src = image_url;
