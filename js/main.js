@@ -45,13 +45,13 @@ fetch(API.NeoWS)
 					<div id="nickname">${object.name_limited}</div>
 				</div>
 				<div class="neo-card__body">
-					<div class="diameter">Diameter: ${Math.round(
+					<div class="diameter">Estimated diameter from: ${Math.round(
 						object.estimated_diameter.kilometers.estimated_diameter_min
-					)} - ${Math.round(
+					)} to ${Math.round(
 				object.estimated_diameter.kilometers.estimated_diameter_max
 			)} Km</div>
 					<div class="next-approach">
-						Next Approach: In 22days:3hours:42Minutes
+						Next Approach: <br> 22days:3hours:42Minutes
 					</div>
 					<p>See all encounters with ${object.name_limited}:</p>
 					<button id="past-approaches">Show me!</button>
