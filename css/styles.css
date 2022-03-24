@@ -1,23 +1,7 @@
 @import './font-face.css';
 
 :root {
-	--neutral-100: #ffffff;
-	--neutral-300: #cccccc;
-	--neutral-500: #949494;
-	--neutral-700: #383838;
-	--neutral-900: #1a1a1a;
-
-	--main-100: #4f66cd;
-	--main-300: #354dba;
-	--main-500: #2b3f98;
-	--main-700: #253682;
-	--main-900: #1e2d6c;
-
-	--accent-100: #cdb64f;
-	--accent-300: #baa235;
-	--accent-500: #97832b;
-	--accent-700: #827125;
-	--accent-900: #6c5e1e;
+	font-family: Oswald;
 }
 
 /* HEADER */
@@ -26,7 +10,7 @@ header {
 	position: fixed;
 	top: 0;
 	width: 100vw;
-	background-color: var(--neutral-100);
+	background-color: #fff;
 	padding: 0;
 	max-height: 100px;
 	z-index: 1;
@@ -39,7 +23,7 @@ header .logo {
 }
 
 header .logo img {
-	width: 250px;
+	width: 300px;
 }
 
 /* END-HEADER */
@@ -47,7 +31,7 @@ header .logo img {
 /* MAIN */
 
 main {
-	margin-top: 175px;
+	margin-top: 200px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -64,13 +48,24 @@ main {
 
 .container .daily .daily__image img {
 	border-radius: 25px;
-	border: 3px solid white;
+	border: 7px solid white;
 }
 
 .container .daily .daily__quote {
-	background-color: var(--neutral-100);
-	border-radius: 0 5px 5px 0;
+	background-color: #fff;
+	border-radius: 0 25px 25px 0;
 	padding: 50px;
+}
+
+.container .daily .daily__quote #quote-daily {
+	color: navy;
+	font-weight: 600;
+	font-size: 50px;
+}
+
+.container .daily .daily__quote #quote-daily-author {
+	font-weight: 300;
+	font-size: 20px;
 }
 
 /*  END - MAIN  */
