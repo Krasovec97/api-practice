@@ -89,7 +89,7 @@ header img {
 	font-size: 32px;
 }
 
-.neo__card-container {
+#neo__card-container {
 	display: grid;
 	gap: 25px;
 	grid-template-columns: repeat(4, 1fr);
