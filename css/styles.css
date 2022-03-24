@@ -84,7 +84,7 @@ header img {
 }
 
 .neo .title {
-	color: navy;
+	color: white;
 	text-transform: uppercase;
 	font-size: 32px;
 }
@@ -103,7 +103,8 @@ header img {
 .neo-card__header {
 	padding: 20px;
 	line-height: 26px;
-	background-color: #cbcbcb;
+	background-color: #e4e4e4;
+	border-radius: 5px 5px 0 0;
 }
 
 .neo-card__header #fullname {
@@ -112,18 +113,20 @@ header img {
 	font-size: 18px;
 }
 .neo-card__header #nickname {
+	color: navy;
 	text-transform: uppercase;
 	font-weight: 600;
 	font-size: 30px;
 }
 
 .neo-card__body {
-	padding: 5px 20px 5px 20px;
+	padding: 5px 20px 20px 20px;
+	border-radius: 0 0 5px 5px;
 	background-color: #fff;
 }
 
 .neo-card__body p {
-	margin: 10px 0 0 0;
+	margin: 20px 0 0 0;
 }
 
 /* END - NEO */
