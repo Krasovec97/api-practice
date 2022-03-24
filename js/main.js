@@ -37,7 +37,9 @@ fetch(API.NeoWS)
 	})
 	.then((data) => {
 		console.log(data);
-		data.near_earth_objects.forEach((object) => {});
+		data.near_earth_objects.forEach((object) => {
+			document.createElement('div');
+		});
 	})
 	.catch((err) => console.err('Error: ' + err));
 
