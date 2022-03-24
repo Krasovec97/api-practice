@@ -9,6 +9,9 @@ fetch(dailyImageUrl)
 	})
 	.then((data) => {
 		astroImage(data.url);
+	})
+	.catch((error) => {
+		console.error('Error: ' + error);
 	});
 
 fetch(dQuote)
@@ -20,6 +23,9 @@ fetch(dQuote)
 			quoteData.contents.quotes[0].quote,
 			quoteData.contents.quotes[0].author
 		);
+	})
+	.catch((error) => {
+		console.error('Error: ' + error);
 	});
 
 function astroImage(image_url) {
