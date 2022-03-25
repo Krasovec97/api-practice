@@ -1,43 +1,30 @@
 const API = {
-	dailyImage:
-		'https://api.nasa.gov/planetary/apod?api_key=whyzw93A2cmHzchDRiHf514XoTp0yRe0RhqZ2qwg',
+	dailyImage: 'https://api.nasa.gov/planetary/apod?api_key=whyzw93A2cmHzchDRiHf514XoTp0yRe0RhqZ2qwg',
 	dailyQuote: 'https://quotes.rest/qod',
-	NeoWS:
-		'https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=whyzw93A2cmHzchDRiHf514XoTp0yRe0RhqZ2qwg',
+	NeoWS: 'https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=whyzw93A2cmHzchDRiHf514XoTp0yRe0RhqZ2qwg',
 };
 
 fetch(API.dailyImage)
-	.then((response) => {
-		return response.json();
-	})
+	.then((response) => response.json())
 	.then((data) => {
 		astroImage(data.url);
 	})
-	.catch((error) => {
-		console.error('Error: ' + error);
-	});
+	.catch((err) => handleError(err));
 
 fetch(API.dailyQuote)
-	.then((response) => {
-		return response.json();
-	})
+	.then((response) => response.json())
 	.then((quoteData) => {
-		dailyQuote(
-			quoteData.contents.quotes[0].quote,
-			quoteData.contents.quotes[0].author
-		);
+		dailyQuote(quoteData.contents.quotes[0].quote, quoteData.contents.quotes[0].author);
 	})
-	.catch((error) => {
-		console.error('Error: ' + error);
-	});
+	.catch((err) => handleError(err));
 
 fetch(API.NeoWS)
-	.then((response) => {
-		return response.json();
-	})
+	.then((response) => response.json())
 	.then((data) => {
 		let value = '';
 		data.near_earth_objects.forEach((object) => {
+			const diameterMin = Math.round(object.estimated_diameter.kilometers.estimated_diameter_min);
+			const diameterMax = Math.round(object.estimated_diameter.kilometers.estimated_diameter_max);
 			value += `
 			<div class="neo-card">
 				<div class="neo-card__header">
@@ -45,11 +32,7 @@ fetch(API.NeoWS)
 					<div id="nickname">${object.name_limited}</div>
 				</div>
 				<div class="neo-card__body">
-					<div class="diameter">Estimated diameter from: ${Math.round(
-						object.estimated_diameter.kilometers.estimated_diameter_min
-					)} to ${Math.round(
-				object.estimated_diameter.kilometers.estimated_diameter_max
-			)} Km</div>
+					<div class="diameter">Estimated diameter from: ${diameterMin} to ${diameterMax} Km</div>
 					<div class="next-approach">
 						Next Approach: <br> 22days:3hours:42Minutes
 					</div>
@@ -60,7 +43,11 @@ fetch(API.NeoWS)
 		});
 		document.getElementById('neo__card-container').innerHTML = value;
 	})
-	.catch((err) => console.error('Error: ' + err));
+	.catch((err) => handleError(err));
+
+function handleError(error) {
+	console.error('Error: ' + error);
+}
 
 function astroImage(image_url) {
 	document.getElementById('astro-daily').src = image_url;
