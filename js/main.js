@@ -22,7 +22,8 @@ fetch(API.NeoWS)
 	.then((response) => response.json())
 	.then((data) => {
 		let value = '';
-		data.near_earth_objects.forEach((object) => {
+		filterNeos(data.near_earth_objects).forEach((object) => {
+			console.log(object);
 			const diameterMin = Math.round(object.estimated_diameter.kilometers.estimated_diameter_min);
 			const diameterMax = Math.round(object.estimated_diameter.kilometers.estimated_diameter_max);
 			value += `
@@ -34,7 +35,7 @@ fetch(API.NeoWS)
 				<div class="neo-card__body">
 					<div class="diameter">Estimated diameter from: ${diameterMin} to ${diameterMax} Km</div>
 					<div class="next-approach">
-						Next Approach: <br> 22days:3hours:42Minutes
+						Next Approach: <br>
 					</div>
 					<p>See all encounters with ${object.name_limited}:</p>
 					<button id="past-approaches">Show me!</button>
@@ -56,4 +57,33 @@ function astroImage(image_url) {
 function dailyQuote(quote, author) {
 	document.getElementById('quote-daily').innerHTML = `"${quote}"`;
 	document.getElementById('quote-daily-author').innerHTML = `- ${author}`;
+}
+
+function filterNeos(neoData) {
+	const today = new Date();
+
+	return neoData.map((neo) => {
+		neo.close_approach_data = neo.close_approach_data.filter((data) => {
+			if (data.close_approach_date === undefined) {
+				return null;
+			}
+			const nextDate = new Date(data.close_approach_date);
+
+			if (nextDate > today) {
+				return nextDate;
+			}
+
+			return null;
+		});
+		return neo;
+	});
+
+	// const filtered = neoData.close_approach_data.filter((date) => {
+	// 	let nextDate = new Date(date.close_approach_date);
+	// 	return nextDate > today;
+	// });
+
+	// neoData.close_approach_data = filtered;
+
+	// return neoData;
 }
