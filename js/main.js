@@ -74,11 +74,3 @@ function filterNeos(neoData) {
 		return neo;
 	});
 }
-
-function getClosest(dates) {
-	let closest = dates
-		.map((x) => ({ ...x, close_approach_date: x.date })) // Convert date to an actual date
-		.reduce((a, b) => (a.date - today < b.date - today ? a : b));
-
-	console.log(closest);
-}
