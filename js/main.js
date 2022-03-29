@@ -1,8 +1,6 @@
-const API = {
-	dailyImage: 'https://api.nasa.gov/planetary/apod?api_key=whyzw93A2cmHzchDRiHf514XoTp0yRe0RhqZ2qwg',
-	dailyQuote: 'https://quotes.rest/qod',
-	NeoWS: 'https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=whyzw93A2cmHzchDRiHf514XoTp0yRe0RhqZ2qwg',
-};
+import { API } from './api.js';
+
+const today = new Date();
 
 fetch(API.dailyImage)
 	.then((response) => response.json())
@@ -60,8 +58,6 @@ function dailyQuote(quote, author) {
 }
 
 function filterNeos(neoData) {
-	const today = new Date();
-
 	return neoData.map((neo) => {
 		neo.close_approach_data = neo.close_approach_data.filter((data) => {
 			if (data.close_approach_date === undefined) {
@@ -77,13 +73,12 @@ function filterNeos(neoData) {
 		});
 		return neo;
 	});
+}
 
-	// const filtered = neoData.close_approach_data.filter((date) => {
-	// 	let nextDate = new Date(date.close_approach_date);
-	// 	return nextDate > today;
-	// });
+function getClosest(dates) {
+	let closest = dates
+		.map((x) => ({ ...x, close_approach_date: x.date })) // Convert date to an actual date
+		.reduce((a, b) => (a.date - today < b.date - today ? a : b));
 
-	// neoData.close_approach_data = filtered;
-
-	// return neoData;
+	console.log(closest);
 }
