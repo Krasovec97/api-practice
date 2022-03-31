@@ -2,7 +2,7 @@
 
 Project by Mitja
 
-# Project SETUP
+# Project setup
 
 - Change config to your own liking
 - Set path in main.js

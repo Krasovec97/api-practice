@@ -22,7 +22,9 @@ fetch(API.NEOWS)
 	.then((data) => {
 		let value = '';
 		filterNeos(data.near_earth_objects).forEach((object) => {
-			console.log(object);
+			// console.log(object);
+			closestToToday(object.close_approach_data);
+
 			const diameterMin = Math.round(object.estimated_diameter.kilometers.estimated_diameter_min);
 			const diameterMax = Math.round(object.estimated_diameter.kilometers.estimated_diameter_max);
 			value += `
@@ -61,10 +63,11 @@ function dailyQuote(quote, author) {
 function filterNeos(neoData) {
 	return neoData.map((neo) => {
 		neo.close_approach_data = neo.close_approach_data.filter((data) => {
+			const nextDate = new Date(data.close_approach_date);
+
 			if (data.close_approach_date === undefined) {
 				return null;
 			}
-			const nextDate = new Date(data.close_approach_date);
 
 			if (nextDate > today) {
 				return nextDate;
@@ -74,4 +77,15 @@ function filterNeos(neoData) {
 		});
 		return neo;
 	});
+}
+
+function closestToToday(neoDate) {
+	console.log(neoDate);
+	neoDate.reduce((a, b) => {
+		a = new Date(a.close_approach_date);
+		b = new Date(b.close_approach_date);
+		a - today < b - today ? a : b;
+	});
+
+	console.log(neoDate);
 }
