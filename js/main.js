@@ -1,3 +1,4 @@
+// Change route to your config file
 import { API } from './myconfig.js';
 
 const today = new Date();
