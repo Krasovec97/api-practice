@@ -1,22 +1,22 @@
-import { API } from './api.js';
+import { API } from './config.js';
 
 const today = new Date();
 
-fetch(API.dailyImage)
+fetch(API.DAILY_IMAGE)
 	.then((response) => response.json())
 	.then((data) => {
 		astroImage(data.url);
 	})
 	.catch((err) => handleError(err));
 
-fetch(API.dailyQuote)
+fetch(API.DAILY_QUOTE)
 	.then((response) => response.json())
 	.then((quoteData) => {
 		dailyQuote(quoteData.contents.quotes[0].quote, quoteData.contents.quotes[0].author);
 	})
 	.catch((err) => handleError(err));
 
-fetch(API.NeoWS)
+fetch(API.NEOWS)
 	.then((response) => response.json())
 	.then((data) => {
 		let value = '';
