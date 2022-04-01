@@ -22,7 +22,6 @@ fetch(API.NEOWS)
 	.then((data) => {
 		let value = '';
 		filterNeos(data.near_earth_objects).forEach((object) => {
-			// console.log(object);
 			closestToToday(object.close_approach_data);
 
 			const diameterMin = Math.round(object.estimated_diameter.kilometers.estimated_diameter_min);
@@ -44,8 +43,8 @@ fetch(API.NEOWS)
 			</div>`;
 		});
 		document.getElementById('neo__card-container').innerHTML = value;
-	})
-	.catch((err) => handleError(err));
+	});
+//.catch((err) => handleError(err));
 
 function handleError(error) {
 	console.error('Error: ' + error);
@@ -75,17 +74,23 @@ function filterNeos(neoData) {
 
 			return null;
 		});
+		neo.close_approach_data[5] = neo.close_approach_data[0];
+		neo.close_approach_data[2] = neo.close_approach_data[4];
+		neo.close_approach_data[0] = neo.close_approach_data[3];
+
 		return neo;
 	});
 }
 
 function closestToToday(neoDate) {
-	console.log(neoDate);
-	neoDate.reduce((a, b) => {
-		a = new Date(a.close_approach_date);
-		b = new Date(b.close_approach_date);
-		a - today < b - today ? a : b;
+	const test = neoDate.reduce((a, b) => {
+		const newA = new Date(a.close_approach_date).getTime();
+		const newB = new Date(b.close_approach_date).getTime();
+
+		// console.log(newA, today.getTime());
+
+		return newA - today.getTime() < newB - today.getTime() ? a : b;
 	});
 
-	console.log(neoDate);
+	console.log(test);
 }
