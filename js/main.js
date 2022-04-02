@@ -22,8 +22,8 @@ fetch(API.NEOWS)
 	.then((data) => {
 		let value = '';
 		filterNeos(data.near_earth_objects).forEach((object) => {
-			closestToToday(object.close_approach_data);
-
+			const closestDate = closestToToday(object.close_approach_data);
+			const calculatedTime = calculateTimer(closestDate);
 			const diameterMin = Math.round(object.estimated_diameter.kilometers.estimated_diameter_min);
 			const diameterMax = Math.round(object.estimated_diameter.kilometers.estimated_diameter_max);
 			value += `
@@ -35,7 +35,10 @@ fetch(API.NEOWS)
 				<div class="neo-card__body">
 					<div class="diameter">Estimated diameter from: ${diameterMin} to ${diameterMax} Km</div>
 					<div class="next-approach">
-						Next Approach: <br>
+						Next Approach in: <br>
+						${calculatedTime.days} days, ${calculatedTime.hours} hours<br>
+						${calculatedTime.minutes} minutes & ${calculatedTime.seconds} seconds.<br>
+						Or on: <br>${new Date(closestDate)}
 					</div>
 					<p>See all encounters with ${object.name_limited}:</p>
 					<button id="past-approaches">Show me!</button>
@@ -74,23 +77,33 @@ function filterNeos(neoData) {
 
 			return null;
 		});
-		neo.close_approach_data[5] = neo.close_approach_data[0];
-		neo.close_approach_data[2] = neo.close_approach_data[4];
-		neo.close_approach_data[0] = neo.close_approach_data[3];
-
 		return neo;
 	});
 }
 
 function closestToToday(neoDate) {
-	const test = neoDate.reduce((a, b) => {
+	const closest = neoDate.reduce((a, b) => {
 		const newA = new Date(a.close_approach_date).getTime();
 		const newB = new Date(b.close_approach_date).getTime();
-
-		// console.log(newA, today.getTime());
 
 		return newA - today.getTime() < newB - today.getTime() ? a : b;
 	});
 
-	console.log(test);
+	return closest.close_approach_date;
+}
+
+function calculateTimer(date) {
+	const total = Date.parse(date) - Date.parse(today);
+	const seconds = Math.floor((total / 1000) % 60);
+	const minutes = Math.floor((total / 1000 / 60) % 60);
+	const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+	const days = Math.floor(total / (1000 * 60 * 60 * 24));
+
+	return {
+		total,
+		days,
+		hours,
+		minutes,
+		seconds,
+	};
 }
