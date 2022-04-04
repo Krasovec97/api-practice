@@ -23,7 +23,7 @@ fetch(API.NEOWS)
 		let value = '';
 		filterNeos(data.near_earth_objects).forEach((object) => {
 			const closestDate = closestToToday(object.close_approach_data);
-			const calculatedTime = calculateTimer(closestDate);
+			setInterval(updateClock(closestDate), 1000);
 			const diameterMin = Math.round(object.estimated_diameter.kilometers.estimated_diameter_min);
 			const diameterMax = Math.round(object.estimated_diameter.kilometers.estimated_diameter_max);
 			value += `
@@ -36,8 +36,7 @@ fetch(API.NEOWS)
 					<div class="diameter">Estimated diameter from: ${diameterMin} to ${diameterMax} Km</div>
 					<div class="next-approach">
 						Next Approach in: <br>
-						${calculatedTime.days} days, ${calculatedTime.hours} hours<br>
-						${calculatedTime.minutes} minutes & ${calculatedTime.seconds} seconds.<br>
+						<div class="next-apporach__date" id="date-display"></div>
 						Or on: <br>${new Date(closestDate)}
 					</div>
 					<p>See all encounters with ${object.name_limited}:</p>
@@ -45,7 +44,7 @@ fetch(API.NEOWS)
 				</div>
 			</div>`;
 		});
-		document.getElementById('neo__card-container').innerHTML = value;
+		document.querySelector('#neo__card-container').innerHTML = value;
 	});
 //.catch((err) => handleError(err));
 
@@ -54,12 +53,12 @@ function handleError(error) {
 }
 
 function astroImage(image_url) {
-	document.getElementById('astro-daily').src = image_url;
+	document.querySelector('#astro-daily').src = image_url;
 }
 
 function dailyQuote(quote, author) {
-	document.getElementById('quote-daily').innerHTML = `"${quote}"`;
-	document.getElementById('quote-daily-author').innerHTML = `- ${author}`;
+	document.querySelector('#quote-daily').innerHTML = `"${quote}"`;
+	document.querySelector('#quote-daily-author').innerHTML = `- ${author}`;
 }
 
 function filterNeos(neoData) {
@@ -92,7 +91,7 @@ function closestToToday(neoDate) {
 	return closest.close_approach_date;
 }
 
-function calculateTimer(date) {
+function getTimeRemaining(date) {
 	const total = Date.parse(date) - Date.parse(today);
 	const seconds = Math.floor((total / 1000) % 60);
 	const minutes = Math.floor((total / 1000 / 60) % 60);
@@ -100,10 +99,16 @@ function calculateTimer(date) {
 	const days = Math.floor(total / (1000 * 60 * 60 * 24));
 
 	return {
-		total,
 		days,
 		hours,
 		minutes,
 		seconds,
 	};
+}
+
+function updateClock(date) {
+	const calculatedTime = getTimeRemaining(date);
+
+	this.document.querySelector('#date-display').innerHTML = `${calculatedTime.days} days, ${calculatedTime.hours} hours,<br>
+	${calculatedTime.minutes} minutes, ${calculatedTime.seconds} seconds.`;
 }
