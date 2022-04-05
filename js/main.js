@@ -42,9 +42,11 @@ fetch(API.NEOWS)
 					<button id="past-approaches">Show me!</button>
 				</div>
 			</div>`;
+
+			document.querySelector('#neo__card-container').innerHTML = value;
+
 			setInterval(updateClock(closestDate), 1000);
 		});
-		document.querySelector('#neo__card-container').innerHTML = value;
 	});
 //.catch((err) => handleError(err));
 
