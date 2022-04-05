@@ -23,7 +23,6 @@ fetch(API.NEOWS)
 		let value = '';
 		filterNeos(data.near_earth_objects).forEach((object) => {
 			const closestDate = closestToToday(object.close_approach_data);
-			setInterval(updateClock(closestDate), 1000);
 			const diameterMin = Math.round(object.estimated_diameter.kilometers.estimated_diameter_min);
 			const diameterMax = Math.round(object.estimated_diameter.kilometers.estimated_diameter_max);
 			value += `
@@ -43,6 +42,7 @@ fetch(API.NEOWS)
 					<button id="past-approaches">Show me!</button>
 				</div>
 			</div>`;
+			setInterval(updateClock(closestDate), 1000);
 		});
 		document.querySelector('#neo__card-container').innerHTML = value;
 	});
@@ -109,6 +109,6 @@ function getTimeRemaining(date) {
 function updateClock(date) {
 	const calculatedTime = getTimeRemaining(date);
 
-	this.document.querySelector('#date-display').innerHTML = `${calculatedTime.days} days, ${calculatedTime.hours} hours,<br>
+	document.querySelector('#date-display').innerHTML = `${calculatedTime.days} days, ${calculatedTime.hours} hours,<br>
 	${calculatedTime.minutes} minutes, ${calculatedTime.seconds} seconds.`;
 }
