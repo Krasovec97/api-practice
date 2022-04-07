@@ -23,6 +23,13 @@ fetch(API.NEOWS)
 		let value = '';
 		filterNeos(data.near_earth_objects).forEach((object, index) => {
 			const closestDate = closestToToday(object.close_approach_data);
+			let formatOptions = {
+				weekday: 'long',
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric',
+			};
+			let formattedDate = new Date(closestDate).toLocaleDateString('en-US', formatOptions);
 			const diameterMin = Math.round(object.estimated_diameter.kilometers.estimated_diameter_min);
 			const diameterMax = Math.round(object.estimated_diameter.kilometers.estimated_diameter_max);
 			value += `
@@ -34,9 +41,11 @@ fetch(API.NEOWS)
 				<div class="neo-card__body">
 					<div class="diameter">Estimated diameter from: ${diameterMin} to ${diameterMax} Km</div>
 					<div class="next-approach">
-						Next Approach in: <br>
-						<div class="next-apporach__date">${closestDate}</div>
-						Or on: <br>${new Date(closestDate)}
+						<div class="next-approach__title">Next Approach in</div>
+						<div class="next-approach__date">${closestDate}</div>
+
+						<div class="next-approach__title">On</div>
+						<div class="next-approach__date--full">${formattedDate}</div>
 					</div>
 					<p>See all encounters with ${object.name_limited}:</p>
 					<button id="past-approaches">Show me!</button>
@@ -112,7 +121,7 @@ function getTimeRemaining(date) {
 function updateClock(date, index) {
 	const calculatedTime = getTimeRemaining(date);
 
-	const element = document.querySelectorAll('.next-apporach__date')[index];
+	const element = document.querySelectorAll('.next-approach__date')[index];
 
 	if (element) {
 		element.innerHTML = `${calculatedTime.days} days, ${calculatedTime.hours} hours,<br>

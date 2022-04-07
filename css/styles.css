@@ -129,6 +129,29 @@ header img {
 	margin: 20px 0 0 0;
 }
 
+.next-approach {
+	padding: 10px;
+}
+
+.next-approach__title {
+	text-align: center;
+	padding: 0;
+	color: red;
+}
+
+.next-approach__date,
+.next-approach__date--full {
+	text-align: center;
+	padding: 0 10px 10px 10px;
+	font-weight: 500;
+	color: navy;
+	font-size: 20px;
+}
+
+.next-approach__date--full {
+	font-size: 16px;
+}
+
 /* END - NEO */
 
 /*  END - MAIN  */
