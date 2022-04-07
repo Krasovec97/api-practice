@@ -35,8 +35,8 @@ fetch(API.NEOWS)
 			value += `
 			<div class="neo-card">
 				<div class="neo-card__header">
-					<div id="fullname">${object.name}</div>
-					<div id="nickname">${object.name_limited}</div>
+					<div class="fullname">${object.name}</div>
+					<div class="nickname">${object.name_limited}</div>
 				</div>
 				<div class="neo-card__body">
 					<div class="diameter">Estimated diameter from: ${diameterMin} to ${diameterMax} Km</div>
@@ -48,11 +48,12 @@ fetch(API.NEOWS)
 						<div class="next-approach__date--full">${formattedDate}</div>
 					</div>
 					<p>See all encounters with ${object.name_limited}:</p>
-					<button id="past-approaches">Show me!</button>
+					<button class="past-approaches">Show me!</button>
 				</div>
-			</div>`;
+			</div>
+			`;
 
-			document.querySelector('#neo__card-container').innerHTML = value;
+			document.querySelector('.neo__card-container').innerHTML = value;
 
 			setInterval(() => updateClock(closestDate, index), 1000);
 		});

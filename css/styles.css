@@ -89,7 +89,7 @@ header img {
 	font-size: 32px;
 }
 
-#neo__card-container {
+.neo__card-container {
 	display: grid;
 	gap: 25px;
 	grid-template-columns: repeat(4, 1fr);
@@ -107,12 +107,12 @@ header img {
 	border-radius: 5px 5px 0 0;
 }
 
-.neo-card__header #fullname {
+.fullname {
 	text-transform: capitalize;
 	font-weight: 300;
 	font-size: 18px;
 }
-.neo-card__header #nickname {
+.nickname {
 	color: navy;
 	text-transform: uppercase;
 	font-weight: 600;
@@ -136,7 +136,6 @@ header img {
 .next-approach__title {
 	text-align: center;
 	padding: 0;
-	color: red;
 }
 
 .next-approach__date,
