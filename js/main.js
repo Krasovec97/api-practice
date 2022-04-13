@@ -3,6 +3,10 @@ import { API } from './myconfig.js';
 
 const today = new Date();
 
+// Create buttons
+const pastButton = document.createElement('button');
+pastButton.innerHTML = 'Show me!';
+
 fetch(API.DAILY_IMAGE)
 	.then((response) => response.json())
 	.then((data) => {
@@ -22,16 +26,20 @@ fetch(API.NEOWS)
 	.then((data) => {
 		let value = '';
 		filterNeos(data.near_earth_objects).forEach((object, index) => {
+			// Date calculations and date format options
 			const closestDate = closestToToday(object.close_approach_data);
-			let formatOptions = {
+			const formatOptions = {
 				weekday: 'long',
 				year: 'numeric',
 				month: 'long',
 				day: 'numeric',
 			};
-			let formattedDate = new Date(closestDate).toLocaleDateString('en-US', formatOptions);
+			const formattedDate = new Date(closestDate).toLocaleDateString('en-US', formatOptions);
+
+			// Object information
 			const diameterMin = Math.round(object.estimated_diameter.kilometers.estimated_diameter_min);
 			const diameterMax = Math.round(object.estimated_diameter.kilometers.estimated_diameter_max);
+
 			value += `
 			<div class="neo-card">
 				<div class="neo-card__header">
@@ -48,7 +56,7 @@ fetch(API.NEOWS)
 						<div class="next-approach__date--full">${formattedDate}</div>
 					</div>
 					<p>See all encounters with ${object.name_limited}:</p>
-					<button class="past-approaches">Show me!</button>
+					<div class="next-approach__button"></div>
 				</div>
 			</div>
 			`;
@@ -56,6 +64,8 @@ fetch(API.NEOWS)
 			document.querySelector('.neo__card-container').innerHTML = value;
 
 			setInterval(() => updateClock(closestDate, index), 1000);
+
+			generateButtons(pastButton, index);
 		});
 	})
 	.catch((err) => handleError(err));
@@ -128,4 +138,14 @@ function updateClock(date, index) {
 		element.innerHTML = `${calculatedTime.days} days, ${calculatedTime.hours} hours,<br>
 		${calculatedTime.minutes} minutes, ${calculatedTime.seconds} seconds.`;
 	}
+}
+
+function generateButtons(button, index) {
+	const cardElement = document.querySelectorAll('.next-approach__button')[index];
+
+	if (cardElement) {
+		cardElement.appendChild(button);
+	}
+
+	console.log(cardElement);
 }
