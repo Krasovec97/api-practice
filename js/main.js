@@ -53,12 +53,16 @@ fetch(API.NEOWS)
 						<div class="next-approach__date--full">${formattedDate}</div>
 					</div>
 					<p>See all encounters with ${object.name_limited}:</p>
-					<button class="next-approach__button">Show me!</button>
+					<button id="${index}" class="next-approach__button">Show me!</button>
 				</div>
 			</div>
 			`;
 
 			document.querySelector('.neo__card-container').innerHTML = value;
+
+			const getButton = document.querySelectorAll('.next-approach__button')[index];
+			// buttonLogic(getButton.id);
+			getButton.addEventListener('click', buttonLogic);
 
 			setInterval(() => updateClock(closestDate, index), 1000);
 		});
@@ -133,4 +137,8 @@ function updateClock(date, index) {
 		element.innerHTML = `${calculatedTime.days} days, ${calculatedTime.hours} hours,<br>
 		${calculatedTime.minutes} minutes, ${calculatedTime.seconds} seconds.`;
 	}
+}
+
+function buttonLogic() {
+	console.log('TEST');
 }
