@@ -20,9 +20,11 @@ fetch(API.DAILY_QUOTE)
 fetch(API.NEOWS)
 	.then((response) => response.json())
 	.then((data) => {
+		const dataToFilter = [...data.near_earth_objects];
 		let value = '';
 
-		filterNeos(data.near_earth_objects).forEach((object, index) => {
+		filterNeos(dataToFilter).forEach((object, index) => {
+			// console.log(objectArray);
 			// Date calculations and date format options
 			const closestDate = closestToToday(object.close_approach_data);
 			const formatOptions = {
@@ -53,19 +55,17 @@ fetch(API.NEOWS)
 						<div class="next-approach__date--full">${formattedDate}</div>
 					</div>
 					<p>See all encounters with ${object.name_limited}:</p>
-					<button id="${index}" class="next-approach__button">Show me!</button>
+					<button class="next-approach_button">Show me!</button>
 				</div>
 			</div>
 			`;
 
 			document.querySelector('.neo__card-container').innerHTML = value;
 
-			const getButton = document.querySelectorAll('.next-approach__button')[index];
-			// buttonLogic(getButton.id);
-			getButton.addEventListener('click', buttonLogic);
-
 			setInterval(() => updateClock(closestDate, index), 1000);
 		});
+
+		buttonLogic();
 	})
 	.catch((err) => handleError(err));
 
@@ -140,5 +140,23 @@ function updateClock(date, index) {
 }
 
 function buttonLogic() {
-	console.log('TEST');
+	const getButtons = document.querySelectorAll('.next-approach_button');
+	const modal = document.querySelector('.modal');
+	const span = document.querySelector('.close');
+
+	span.onclick = function () {
+		modal.style.display = 'none';
+	};
+
+	window.onclick = function (event) {
+		if (event.target == modal) {
+			modal.style.display = 'none';
+		}
+	};
+
+	getButtons.forEach((button, index) =>
+		button.addEventListener('click', function () {
+			modal.style.display = 'block';
+		})
+	);
 }
