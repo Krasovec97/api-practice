@@ -20,8 +20,8 @@ fetch(API.DAILY_QUOTE)
 fetch(API.NEOWS)
 	.then((response) => response.json())
 	.then((data) => {
-		const dataToFilter = [...data.near_earth_objects];
 		let value = '';
+		const dataToFilter = [...data.near_earth_objects];
 
 		filterNeos(dataToFilter).forEach((object, index) => {
 			// console.log(objectArray);
@@ -83,7 +83,7 @@ function dailyQuote(quote, author) {
 }
 
 function filterNeos(neoData) {
-	return neoData.map((neo) => {
+	return neoData.map(({ ...neo }) => {
 		neo.close_approach_data = neo.close_approach_data.filter((data) => {
 			const nextDate = new Date(data.close_approach_date);
 
@@ -158,8 +158,8 @@ function buttonLogic(object) {
 	getButtons.forEach((button, index) =>
 		button.addEventListener('click', function () {
 			modal.style.display = 'block';
-			console.log(index);
-			console.log(neo[index]);
+			// console.log(index);
+			// console.log(neo[index]);
 		})
 	);
 }
