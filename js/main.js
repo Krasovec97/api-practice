@@ -65,7 +65,7 @@ fetch(API.NEOWS)
 			setInterval(() => updateClock(closestDate, index), 1000);
 		});
 
-		buttonLogic();
+		buttonLogic(data.near_earth_objects);
 	})
 	.catch((err) => handleError(err));
 
@@ -139,10 +139,11 @@ function updateClock(date, index) {
 	}
 }
 
-function buttonLogic() {
+function buttonLogic(object) {
 	const getButtons = document.querySelectorAll('.next-approach_button');
 	const modal = document.querySelector('.modal');
 	const span = document.querySelector('.close');
+	const neo = object;
 
 	span.onclick = function () {
 		modal.style.display = 'none';
@@ -157,6 +158,8 @@ function buttonLogic() {
 	getButtons.forEach((button, index) =>
 		button.addEventListener('click', function () {
 			modal.style.display = 'block';
+			console.log(index);
+			console.log(neo[index]);
 		})
 	);
 }
