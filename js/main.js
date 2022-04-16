@@ -3,6 +3,13 @@ import { API } from './myconfig.js';
 
 const today = new Date();
 
+const formatOptions = {
+	weekday: 'long',
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+};
+
 fetch(API.DAILY_IMAGE)
 	.then((response) => response.json())
 	.then((data) => {
@@ -21,18 +28,12 @@ fetch(API.NEOWS)
 	.then((response) => response.json())
 	.then((data) => {
 		let value = '';
-		const dataToFilter = [...data.near_earth_objects];
+		const futureDates = [...data.near_earth_objects];
+		const pastDates = [...data.near_earth_objects];
 
-		filterNeos(dataToFilter).forEach((object, index) => {
-			// console.log(objectArray);
-			// Date calculations and date format options
+		filterNeos(futureDates).forEach((object, index) => {
+			// Date calculations calls
 			const closestDate = closestToToday(object.close_approach_data);
-			const formatOptions = {
-				weekday: 'long',
-				year: 'numeric',
-				month: 'long',
-				day: 'numeric',
-			};
 			const formattedDate = new Date(closestDate).toLocaleDateString('en-US', formatOptions);
 
 			// Object information
@@ -65,7 +66,8 @@ fetch(API.NEOWS)
 			setInterval(() => updateClock(closestDate, index), 1000);
 		});
 
-		buttonLogic(data.near_earth_objects);
+		const pastDatesArray = filterPastNeos(pastDates);
+		buttonLogic(data, pastDatesArray);
 	})
 	.catch((err) => handleError(err));
 
@@ -93,6 +95,25 @@ function filterNeos(neoData) {
 
 			if (nextDate > today) {
 				return nextDate;
+			}
+
+			return null;
+		});
+		return neo;
+	});
+}
+
+function filterPastNeos(neoData) {
+	return neoData.map(({ ...neo }) => {
+		neo.close_approach_data = neo.close_approach_data.filter((data) => {
+			const previousDate = new Date(data.close_approach_date);
+
+			if (data.close_approach_date === undefined) {
+				return null;
+			}
+
+			if (previousDate < today) {
+				return previousDate;
 			}
 
 			return null;
@@ -139,11 +160,13 @@ function updateClock(date, index) {
 	}
 }
 
-function buttonLogic(object) {
+function buttonLogic(object, objectDate) {
 	const getButtons = document.querySelectorAll('.next-approach_button');
 	const modal = document.querySelector('.modal');
 	const span = document.querySelector('.close');
-	const neo = object;
+	const content = document.querySelector('.modal__content');
+	const neo = object.near_earth_objects;
+	const neoDate = objectDate;
 
 	span.onclick = function () {
 		modal.style.display = 'none';
@@ -158,8 +181,25 @@ function buttonLogic(object) {
 	getButtons.forEach((button, index) =>
 		button.addEventListener('click', function () {
 			modal.style.display = 'block';
-			// console.log(index);
-			// console.log(neo[index]);
+			const neoName = neo[index].name_limited.toUpperCase();
+
+			content.innerHTML = `
+				<h1>We met ${neoName} before!</h1>
+				<p>Here's when:</p>
+				<ol class="modal__content-list">
+				</ol>
+			`;
+
+			const contentList = document.querySelector('.modal__content-list');
+
+			neoDate[index].close_approach_data.forEach((date) => {
+				const allDates = date.close_approach_date;
+				const allDatesFormatted = new Date(allDates).toLocaleDateString('en-US', formatOptions);
+				const listItem = document.createElement('li');
+
+				listItem.innerHTML = allDatesFormatted;
+				contentList.appendChild(listItem);
+			});
 		})
 	);
 }
